@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XZwuw5U2rjr7miK+C7gEbLVhEeYgLjj53hxpE0tjX5cFSb33+VMFLcE2eVHRH8PQtRxO2D5zrRrAOusEVJeH5Q==",
+  "dgSpecHash": "ieIJiCHODAj2ppG42VuzKomaGrrYkyxTVAaHrhNi7Ebd9zxOT2G6x7KzEI1YeQ8VdVYVgLkNdoFbbUxn1w5/jQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\GabF\\Desktop\\repos\\UserApi\\UserApi\\UserApi.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\GabF\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\GabF\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\GabF\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
+    "C:\\Users\\GabF\\.nuget\\packages\\fluentresults\\2.5.0\\fluentresults.2.5.0.nupkg.sha512",
     "C:\\Users\\GabF\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",
     "C:\\Users\\GabF\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\GabF\\.nuget\\packages\\k4os.compression.lz4\\1.1.11\\k4os.compression.lz4.1.1.11.nupkg.sha512",

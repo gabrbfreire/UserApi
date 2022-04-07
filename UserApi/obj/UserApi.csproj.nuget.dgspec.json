@@ -47,6 +47,10 @@
               "target": "Package",
               "version": "[8.1.1, )"
             },
+            "FluentResults": {
+              "target": "Package",
+              "version": "[2.5.0, )"
+            },
             "Microsoft.AspNetCore.Identity": {
               "target": "Package",
               "version": "[2.2.0, )"

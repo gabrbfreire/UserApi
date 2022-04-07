@@ -56,3 +56,4 @@ C:\Users\GabF\Desktop\repos\UserApi\UserApi\obj\Debug\net5.0\ref\UserApi.dll
 C:\Users\GabF\Desktop\repos\UserApi\UserApi\obj\Debug\net5.0\UserApi.pdb
 C:\Users\GabF\Desktop\repos\UserApi\UserApi\obj\Debug\net5.0\UserApi.genruntimeconfig.cache
 C:\Users\GabF\Desktop\repos\UserApi\UserApi\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\GabF\Desktop\repos\UserApi\UserApi\bin\Debug\net5.0\FluentResults.dll
