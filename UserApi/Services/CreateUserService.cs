@@ -24,15 +24,20 @@ namespace UserApi.Services
 
         public Result CreateUser([FromBody] CreateUserDto createUserDto)
         {
-            User user = _mapper.Map<User>(createUserDto);
-            IdentityUser<int> userIdentity = _mapper.Map<IdentityUser<int>>(user);
-            Task<IdentityResult> resultIdentity = _userManager.CreateAsync(userIdentity, createUserDto.Password);
+            //Checks if email already exists
+            if ((_userManager.FindByEmailAsync(createUserDto.Email).Result) == null){
+                User user = _mapper.Map<User>(createUserDto);
+                IdentityUser<int> userIdentity = _mapper.Map<IdentityUser<int>>(user);
+                Task<IdentityResult> resultIdentity = _userManager.CreateAsync(userIdentity, createUserDto.Password);
 
-            List<string> errorsDescription = new List<string>();
-            resultIdentity.Result.Errors.ToList().ForEach(n => errorsDescription.Add(n.Description));
+                if (resultIdentity.Result.Succeeded) return Result.Ok();
 
-            if (resultIdentity.Result.Succeeded) return Result.Ok();
-            return Result.Fail(string.Join(",", errorsDescription.ToArray()));
+                List<string> errorsDescription = new List<string>();
+                resultIdentity.Result.Errors.ToList().ForEach(n => errorsDescription.Add(n.Description));
+
+                return Result.Fail(string.Join(",", errorsDescription.ToArray()));
+            }
+            return Result.Fail("Email '" + createUserDto.Email + "' is already taken.");
         }
     }
 }
