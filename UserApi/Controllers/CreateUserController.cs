@@ -25,7 +25,15 @@ namespace UserApi.Controllers
         {
             Result result = _createUserService.CreateUser(createUserDto);
             if (result.IsFailed) return BadRequest(result.Errors);
+            return Ok(result.Successes);
+        }
+
+        [HttpPost("/activate")]
+        public IActionResult ActivateUserAccount(ActivateUserAccountDto activateUserAccountDto)
+        {
+            Result result = _createUserService.ActivateUserAccount(activateUserAccountDto);
+            if (result.IsFailed) return BadRequest(result.Errors);
             return Ok();
-        } 
+        }
     }
 }
