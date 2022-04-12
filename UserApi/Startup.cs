@@ -35,7 +35,8 @@ namespace UserApi
                         
             services.AddScoped<CreateUserService, CreateUserService>();
             services.AddScoped<LoginService, LoginService>();
-
+            services.AddScoped<TokenService, TokenService>(); 
+            services.AddScoped<LogoutService, LogoutService>();
 
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

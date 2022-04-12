@@ -4,26 +4,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UserApi.Data.Dtos;
 using UserApi.Services;
 
 namespace UserApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class LogoutController : ControllerBase
     {
-        private LoginService _loginService;
+        public LogoutService _logoutService;
 
-        public LoginController(LoginService loginService)
+        public LogoutController(LogoutService logoutService)
         {
-            _loginService = loginService;
+            _logoutService = logoutService;
         }
 
         [HttpPost]
-        public IActionResult LoginUser(LoginDto request)
+        public IActionResult LogoutUser()
         {
-            Result result = _loginService.LoginUser(request);
+            Result result = _logoutService.LogoutUser();
             if (result.IsFailed) return Unauthorized(result.Errors);
             return Ok(result.Successes);
         }

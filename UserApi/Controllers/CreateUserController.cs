@@ -24,10 +24,7 @@ namespace UserApi.Controllers
         public IActionResult CreateUser(CreateUserDto createUserDto)
         {
             Result result = _createUserService.CreateUser(createUserDto);
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors);
-            }
+            if (result.IsFailed) return BadRequest(result.Errors);
             return Ok();
         } 
     }

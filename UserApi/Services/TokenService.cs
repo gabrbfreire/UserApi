@@ -21,7 +21,7 @@ namespace UserApi.Services
                 new Claim("id", user.Id.ToString())
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secret"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretsecretsecretsecretsecretsecretsecretsecretsecretsecretsecret"));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(claims: userClaims, signingCredentials: credentials, expires: DateTime.UtcNow.AddMinutes(30));
