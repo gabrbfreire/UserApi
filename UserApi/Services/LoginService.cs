@@ -28,7 +28,12 @@ namespace UserApi.Services
                 Token token = _tokenService.CreateToken(_signInManager.UserManager.Users.FirstOrDefault(user => user.NormalizedUserName == request.UserName.ToUpper()));
                 return Result.Ok().WithSuccess(token.Value);
             }
-            return Result.Fail("Incorrect username or password");
+            // if email is not confirmed
+            if (resultIdentity.Result.IsNotAllowed)
+            {
+                return Result.Fail("User cannot sign in without a confirmed email.");
+            }
+            return Result.Fail("Incorrect username or password.");
         }
     }
 }
