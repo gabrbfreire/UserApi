@@ -25,7 +25,7 @@ namespace UserApi.Controllers
         {
             Result result = _createUserService.CreateUser(createUserDto);
             if (result.IsFailed) return BadRequest(result.Errors);
-            return Ok(result.Successes);
+            return Ok();
         }
 
         [HttpGet("/activate/{Id}/{activationCode}")]

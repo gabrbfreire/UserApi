@@ -42,7 +42,7 @@ namespace UserApi.Services
                     
                     _emailService.SendConfirmationEmail(userIdentity.Id, createUserDto.Email, encodedActivationCode);
                     
-                    return Result.Ok().WithSuccess(activationCode);
+                    return Result.Ok();
                 }
 
                 List<string> errorsDescription = new List<string>();
@@ -56,7 +56,8 @@ namespace UserApi.Services
         {
             var identityUser = _userManager.Users.FirstOrDefault(user => user.Id == activateUserAccountDto.Id);
             var decodedActivationCode = HttpUtility.UrlDecode(activateUserAccountDto.ActivationCode);
-            var identityResult = _userManager.ConfirmEmailAsync(identityUser, activateUserAccountDto.ActivationCode).Result;
+            decodedActivationCode = decodedActivationCode.Replace(" ", "+");
+            var identityResult = _userManager.ConfirmEmailAsync(identityUser, decodedActivationCode).Result;
 
             if (identityResult.Succeeded) return Result.Ok();
             return Result.Fail("Failed to activate user account.");
