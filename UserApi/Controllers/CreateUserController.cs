@@ -28,8 +28,8 @@ namespace UserApi.Controllers
             return Ok(result.Successes);
         }
 
-        [HttpPost("/activate")]
-        public IActionResult ActivateUserAccount(ActivateUserAccountDto activateUserAccountDto)
+        [HttpGet("/activate/{Id}/{activationCode}")]
+        public IActionResult ActivateUserAccount([FromRoute] ActivateUserAccountDto activateUserAccountDto)
         {
             Result result = _createUserService.ActivateUserAccount(activateUserAccountDto);
             if (result.IsFailed) return BadRequest(result.Errors);

@@ -2,10 +2,13 @@
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using UserApi.Data.Dtos;
 using UserApi.Models;
 
@@ -15,11 +18,13 @@ namespace UserApi.Services
     {
         private IMapper _mapper;
         private UserManager<IdentityUser<int>> _userManager;
+        private EmailService _emailService;
 
-        public CreateUserService(IMapper mapper, UserManager<IdentityUser<int>> userManager)
+        public CreateUserService(IMapper mapper, UserManager<IdentityUser<int>> userManager, EmailService emailService)
         {
             _mapper = mapper;
             _userManager = userManager;
+            _emailService = emailService;
         }
 
         public Result CreateUser([FromBody] CreateUserDto createUserDto)
@@ -33,6 +38,10 @@ namespace UserApi.Services
                 if (resultIdentity.Result.Succeeded)
                 {
                     var activationCode = _userManager.GenerateEmailConfirmationTokenAsync(userIdentity).Result;
+                    var encodedActivationCode = HttpUtility.UrlEncode(activationCode);
+                    
+                    _emailService.SendConfirmationEmail(userIdentity.Id, createUserDto.Email, encodedActivationCode);
+                    
                     return Result.Ok().WithSuccess(activationCode);
                 }
 
@@ -46,6 +55,7 @@ namespace UserApi.Services
         internal Result ActivateUserAccount(ActivateUserAccountDto activateUserAccountDto)
         {
             var identityUser = _userManager.Users.FirstOrDefault(user => user.Id == activateUserAccountDto.Id);
+            var decodedActivationCode = HttpUtility.UrlDecode(activateUserAccountDto.ActivationCode);
             var identityResult = _userManager.ConfirmEmailAsync(identityUser, activateUserAccountDto.ActivationCode).Result;
 
             if (identityResult.Succeeded) return Result.Ok();
