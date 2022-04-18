@@ -31,7 +31,11 @@ namespace UserApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<UserDbContext>(options => options.UseMySQL(System.Environment.GetEnvironmentVariable("UserDbConnection")));
-            services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(opt => opt.SignIn.RequireConfirmedEmail = true)
+            services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(opt => 
+            {
+                opt.SignIn.RequireConfirmedEmail = true;
+                opt.User.RequireUniqueEmail = true;
+            })
                 .AddEntityFrameworkStores<UserDbContext>()
                 .AddDefaultTokenProviders();
                         

@@ -29,27 +29,23 @@ namespace UserApi.Services
 
         public Result CreateUser([FromBody] CreateUserDto createUserDto)
         {
-            //Checks if email already exists
-            if ((_userManager.FindByEmailAsync(createUserDto.Email).Result) == null){
-                User user = _mapper.Map<User>(createUserDto);
-                IdentityUser<int> userIdentity = _mapper.Map<IdentityUser<int>>(user);
-                Task<IdentityResult> resultIdentity = _userManager.CreateAsync(userIdentity, createUserDto.Password);
+            User user = _mapper.Map<User>(createUserDto);
+            IdentityUser<int> userIdentity = _mapper.Map<IdentityUser<int>>(user);
+            Task<IdentityResult> resultIdentity = _userManager.CreateAsync(userIdentity, createUserDto.Password);
 
-                if (resultIdentity.Result.Succeeded)
-                {
-                    var activationCode = _userManager.GenerateEmailConfirmationTokenAsync(userIdentity).Result;
-                    var encodedActivationCode = HttpUtility.UrlEncode(activationCode);
+            if (resultIdentity.Result.Succeeded)
+            {
+                var activationCode = _userManager.GenerateEmailConfirmationTokenAsync(userIdentity).Result;
+                var encodedActivationCode = HttpUtility.UrlEncode(activationCode);
                     
-                    _emailService.SendConfirmationEmail(userIdentity.Id, createUserDto.Email, encodedActivationCode);
+                _emailService.SendConfirmationEmail(userIdentity.Id, createUserDto.Email, encodedActivationCode);
                     
-                    return Result.Ok();
-                }
-
-                List<string> errorsDescription = new List<string>();
-                resultIdentity.Result.Errors.ToList().ForEach(n => errorsDescription.Add(n.Description));
-                return Result.Fail(string.Join(",", errorsDescription.ToArray()));
+                return Result.Ok();
             }
-            return Result.Fail("Email '" + createUserDto.Email + "' is already taken.");
+
+            List<string> errorsDescription = new List<string>();
+            resultIdentity.Result.Errors.ToList().ForEach(n => errorsDescription.Add(n.Description));
+            return Result.Fail(string.Join(",", errorsDescription.ToArray()));
         }
 
         internal Result ActivateUserAccount(ActivateUserAccountDto activateUserAccountDto)
